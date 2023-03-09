@@ -1,43 +1,27 @@
 version: '3.7'
 
-networks:
-  danny_backend:
-    name: danny_backend
-
 services:
-  frontend:
-    mem_limit: 128m
-    cpus: 0.1
-
+  danny-frontend:
     restart: unless-stopped
-    image: #todo
-    container_name: frontend
+    image: dannymischa/uek223-extended_frontend:latest
+    container_name: danny-frontend
     depends_on:
-      - backend
+      - dannyBackend
     ports:
-      - 3000:80
-  backend:
-    mem_limit: 512M
-    cpus: 0.2
-
+      - "8012:80"
+  dannyBackend:
     restart: unless-stopped
-    image: #todo
-    container_name: backend
+    image: dannymischa/uek223-extended_backend:latest
+    container_name: dannyBackend
     ports:
-      - 8080:8080
-    environment:
-      -  #env
-    depends_on:
-      - db
-  db:
-    mem_limit: 128m
-    cpus: 0.05
+      - "8097:8080"
 
+  danny-db:
     restart: unless-stopped
     image: 'postgres:10-alpine'
-    container_name: db
+    container_name: danny-db
     ports:
-      - '5432:5432'
+      - '5432'
     environment:
       POSTGRES_PASSWORD: 'postgres'
       POSTGRES_USER: 'postgres'
