@@ -1,5 +1,9 @@
 version: '3.7'
 
+networks:
+  danny_backend:
+    name: danny_backend
+
 services:
   frontend:
     mem_limit: 128m
